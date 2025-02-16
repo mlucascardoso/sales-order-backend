@@ -1,0 +1,40 @@
+@localhost=localhost:4004/odata/v4/main
+@id=22398235-f619-425f-a33d-1f668673f062
+
+GET http://{{localhost}}/Customers
+Content-Type: application/json
+
+###
+
+POST http://{{localhost}}/Customers
+Content-Type: application/json
+
+{
+    "id": "{{id}}",
+    "firstName": "Lucas",
+    "lastName": "Cardoso",
+    "email": "lucas.cardoso@moovi.com"
+}
+
+###
+
+DELETE http://{{localhost}}/Customers(id={{id}})
+Content-Type: application/json
+
+###
+
+PUT http://{{localhost}}/Customers(id={{id}})
+Content-Type: application/json
+
+{
+    "firstName": "John"
+}
+
+###
+
+PATCH http://{{localhost}}/Customers(id={{id}})
+Content-Type: application/json
+
+{
+    "firstName": "John"
+}
