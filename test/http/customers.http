@@ -38,3 +38,8 @@ Content-Type: application/json
 {
     "firstName": "John"
 }
+
+###
+
+GET http://{{localhost}}/Customers?$filter=endswith(firstName,'-15835090') and email ne 'email-15835090'
+Content-Type: application/json
