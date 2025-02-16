@@ -72,3 +72,15 @@ GET http://{{localhost}}/SalesOrderHeaders?$expand=items($expand=product;$filter
 # Selecionar somente customer e id do sales order header
 
 GET http://{{localhost}}/SalesOrderHeaders?$select=customer&$expand=customer($select=email)
+
+###
+
+# Descobrindo a quantidade de registros
+
+GET http://{{localhost}}/SalesOrderHeaders/$count
+
+###
+
+# Paginando os registros
+
+GET http://{{localhost}}/SalesOrderHeaders?$skip=10&$top=5
