@@ -50,19 +50,25 @@ Content-Type: application/json
 ###
 
 # Buscar todos os pedidos maiores ou iguais a 2 milhões
-GET http://localhost:4004/odata/v4/main/SalesOrderHeaders?$filter=totalAmount ge 2000000
+GET http://{{localhost}}/SalesOrderHeaders?$filter=totalAmount ge 2000000
 
 ###
 
 # Buscar todos os pedidos menores ou iguais a 200k
-GET http://localhost:4004/odata/v4/main/SalesOrderHeaders?$filter=totalAmount le 200000
+GET http://{{localhost}}/SalesOrderHeaders?$filter=totalAmount le 200000
 
 ###
 
 # Expandindo os items, produtos e customers
-GET http://localhost:4004/odata/v4/main/SalesOrderHeaders?$expand=items($expand=product),customer
+GET http://{{localhost}}/SalesOrderHeaders?$expand=items($expand=product),customer
 
 ###
 
 # Expandindo os items, produtos, customers e filtrando
-GET http://localhost:4004/odata/v4/main/SalesOrderHeaders?$expand=items($expand=product;$filter=quantity le 30),customer
+GET http://{{localhost}}/SalesOrderHeaders?$expand=items($expand=product;$filter=quantity le 30),customer
+
+###
+
+# Selecionar somente customer e id do sales order header
+
+GET http://{{localhost}}/SalesOrderHeaders?$select=customer&$expand=customer($select=email)
