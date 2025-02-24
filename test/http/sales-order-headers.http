@@ -12,7 +12,7 @@ Content-Type: application/json
 
 POST http://{{localhost}}/SalesOrderHeaders
 Content-Type: application/json
-Authorization: Basic joaozinho:Inicial@12345
+Authorization: Basic cuka:Inicial@12345
 
 {
     "id": "{{id}}",
@@ -40,11 +40,13 @@ Authorization: Basic joaozinho:Inicial@12345
 
 DELETE http://{{localhost}}/SalesOrderHeaders(id={{id}})
 Content-Type: application/json
+Authorization: Basic joaozinho:Inicial@12345
 
 ###
 
 PUT http://{{localhost}}/SalesOrderHeaders(id={{id}})
 Content-Type: application/json
+Authorization: Basic joaozinho:Inicial@12345
 
 {
     "modifiedBy": "teste"
@@ -60,36 +62,43 @@ Authorization: Basic joaozinho:Inicial@12345
 
 # Buscar todos os pedidos menores ou iguais a 200k
 GET http://{{localhost}}/SalesOrderHeaders?$filter=totalAmount le 200000
+Authorization: Basic joaozinho:Inicial@12345
 
 ###
 
 # Expandindo os items, produtos e customers
 GET http://{{localhost}}/SalesOrderHeaders?$expand=items($expand=product),customer
+Authorization: Basic joaozinho:Inicial@12345
 
 ###
 
 # Expandindo os items, produtos, customers e filtrando
 GET http://{{localhost}}/SalesOrderHeaders?$expand=items($expand=product;$filter=quantity le 30),customer
+Authorization: Basic joaozinho:Inicial@12345
 
 ###
 
 # Selecionar somente customer e id do sales order header
 
 GET http://{{localhost}}/SalesOrderHeaders?$select=customer&$expand=customer($select=email)
+Authorization: Basic joaozinho:Inicial@12345
 
 ###
 
 # Descobrindo a quantidade de registros
 
 GET http://{{localhost}}/SalesOrderHeaders/$count
+Authorization: Basic joaozinho:Inicial@12345
 
 ###
 
 # Paginando os registros
 
 GET http://{{localhost}}/SalesOrderHeaders?$skip=10&$top=5
+Authorization: Basic joaozinho:Inicial@12345
 
 ###
 
 # Buscando dados com $search
 GET http://{{localhost}}/SalesOrderHeaders?$search=91pve&$filter=totalAmount gt 500
+Authorization: Basic joaozinho:Inicial@12345
