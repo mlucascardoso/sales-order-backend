@@ -1,5 +1,5 @@
 import cds, { db, Request, Service } from '@sap/cds';
-import { Customers, Products, SalesOrderItem, SalesOrderItems } from '@models/sales';
+import { Customers, Product, Products, SalesOrderHeaders, SalesOrderItem, SalesOrderItems } from '@models/sales';
 
 export default (service: Service) => {
     service.after('READ', 'Customers', (results: Customers) => {
@@ -33,6 +33,24 @@ export default (service: Service) => {
             }
             if (dbProduct.stock === 0) {
                 return request.reject(400, `Produto ${dbProduct.name}(${dbProduct.id}) sem estoque disponível`);
+            }
+        }
+    });
+    service.after('CREATE', 'SalesOrderHeaders', async (results: SalesOrderHeaders) => {
+        const headersAsArray = Array.isArray(results) ? results : [results] as SalesOrderHeaders;
+        for (const header of headersAsArray) {
+            const items = header.items as SalesOrderItems;
+            const productsData = items.map(item => ({
+                id: item.product_id as string,
+                quantity: item.quantity as number
+            }));
+            const productsIds: string[] = productsData.map((productData) => productData.id);
+            const productsQuery = SELECT.from('sales.Products').where({ id: productsIds });
+            const products: Products = await cds.run(productsQuery);
+            for (const productData of productsData) {
+                const foundProduct = products.find(product => product.id === productData.id) as Product;
+                foundProduct.stock = (foundProduct.stock as number) - productData.quantity;
+                await cds.update('sales.Products').where({ id: foundProduct.id }).with({ stock: foundProduct.stock });
             }
         }
     });
