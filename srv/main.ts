@@ -49,6 +49,12 @@ export default (service: Service) => {
         items.forEach(item => {
             totalAmount += (item.price as number) * (item.quantity as number);
         });
+        console.log(`Antes do desconto: ${totalAmount}`);
+        if (totalAmount > 30000) {
+            const discount = totalAmount * (10/100);
+            totalAmount = totalAmount - discount;
+        }
+        console.log(`Depois do desconto: ${totalAmount}`);
         request.data.totalAmount = totalAmount;
         
     });
