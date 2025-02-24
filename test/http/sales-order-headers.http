@@ -12,6 +12,7 @@ Content-Type: application/json
 
 POST http://{{localhost}}/SalesOrderHeaders
 Content-Type: application/json
+Authorization: Basic joaozinho:Inicial@12345
 
 {
     "id": "{{id}}",
@@ -53,6 +54,7 @@ Content-Type: application/json
 
 # Buscar todos os pedidos maiores ou iguais a 2 milhões
 GET http://{{localhost}}/SalesOrderHeaders?$filter=totalAmount ge 2000000
+Authorization: Basic joaozinho:Inicial@12345
 
 ###
 
