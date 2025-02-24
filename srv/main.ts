@@ -45,6 +45,12 @@ export default (service: Service) => {
                 return request.reject(400, `Produto ${dbProduct.name}(${dbProduct.id}) sem estoque disponível`);
             }
         }
+        let totalAmount = 0;
+        items.forEach(item => {
+            totalAmount += (item.price as number) * (item.quantity as number);
+        });
+        request.data.totalAmount = totalAmount;
+        
     });
     service.after('CREATE', 'SalesOrderHeaders', async (results: SalesOrderHeaders) => {
         const headersAsArray = Array.isArray(results) ? results : [results] as SalesOrderHeaders;
