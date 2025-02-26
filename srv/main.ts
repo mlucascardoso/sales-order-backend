@@ -1,23 +1,26 @@
 import cds, { db, Request, Service } from '@sap/cds';
 import { Customers, Product, Products, SalesOrderHeaders, SalesOrderItem, SalesOrderItems } from '@models/sales';
 
+import { CustomersServiceImpl } from './services/customers/implementation';
+
+type teste = Request & {
+    results: any[]
+}
+
 export default (service: Service) => {
     service.before('READ', '*', (request: Request) => {
-        if (!request.user.is('read_only_user')) {
-            return request.reject(403, 'Não autorizado');
-        }
+        // if (!request.user.is('read_only_user')) {
+        //     return request.reject(403, 'Não autorizado');
+        // }
     });
     service.before(['WRITE', 'DELETE'], '*', (request: Request) => {
         if (!request.user.is('admin')) {
             return request.reject(403, 'Não autorizada a escrita/deleção');
         }
     });
-    service.after('READ', 'Customers', (results: Customers) => {
-        results.forEach(customer => {
-            if (!customer.email?.includes('@')) {
-                customer.email = `${customer.email}@gmail.com`;
-            }
-        })
+    service.after('READ', 'Customers', (results: Customers, request) => {
+        const service = new CustomersServiceImpl();
+        (request as unknown as teste).results = service.afterRead(results);
     });
     service.before('CREATE', 'SalesOrderHeaders', async (request: Request) => {
         const params = request.data;
