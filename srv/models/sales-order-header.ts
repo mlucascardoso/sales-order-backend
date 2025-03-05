@@ -1,4 +1,4 @@
-import { SalesOrderItemModel } from "./sales-order-item";
+import { SalesOrderItemModel } from './sales-order-item';
 
 type SalesOrderHeaderProps = {
     id: string;
@@ -65,7 +65,7 @@ export class SalesOrderHeaderModel {
         }
         return {
             hasError: false
-        }
+        };
     }
 
     private validateCustomerOnCreation(customerId: CreationPayload['customer_id']): CreationPayloadValidationResult {
@@ -77,7 +77,7 @@ export class SalesOrderHeaderModel {
         }
         return {
             hasError: false
-        }
+        };
     }
 
     private validateItemsOnCreation(items: SalesOrderHeaderProps['items']): CreationPayloadValidationResult {
@@ -99,11 +99,11 @@ export class SalesOrderHeaderModel {
             return {
                 hasError: true,
                 error: new Error(messages)
-            }
+            };
         }
         return {
             hasError: false
-        }
+        };
     }
 
     public calculateTotalAmount(): number {

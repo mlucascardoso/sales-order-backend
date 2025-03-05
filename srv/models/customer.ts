@@ -41,6 +41,6 @@ export class CustomerModel {
             firstName: this.props.firstName,
             lastName: this.props.lastName,
             email: this.props.email,
-        }
+        };
     }
 }

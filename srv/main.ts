@@ -1,8 +1,8 @@
-import cds, { db, Request, Service } from '@sap/cds';
-import { Customers, Product, Products, SalesOrderHeaders, SalesOrderItem, SalesOrderItems } from '@models/sales';
+import { FullRequestParams } from './protocols';
 import { customerController } from './factories/controllers/customer';
 import { salesOrderHeaderController } from './factories/controllers/sales-order-header';
-import { FullRequestParams } from './protocols';
+import { Customers, SalesOrderHeaders, } from '@models/sales';
+import { Request, Service } from '@sap/cds';
 
 export default (service: Service) => {
     service.before('READ', '*', (request: Request) => {
@@ -28,4 +28,4 @@ export default (service: Service) => {
     service.after('CREATE', 'SalesOrderHeaders', async (salesOrderHeaders: SalesOrderHeaders, request: Request) => {
         await salesOrderHeaderController.afterCreate(salesOrderHeaders, request.user);
     });
-}
+};

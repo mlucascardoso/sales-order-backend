@@ -1,16 +1,16 @@
-import { User } from "@sap/cds";
+import { User } from '@sap/cds';
 
-import { SalesOrderHeader, SalesOrderHeaders, SalesOrderItem } from "@models/sales";
-import { SalesOrderHeaderService, CreationPayloadValidationResult } from "./protocols";
+import { CustomerModel } from 'srv/models/customer';
+import { CustomerRepository } from 'srv/repositories/customer/protocols';
+import { LoggedUserModel } from 'srv/models/logged-user';
+import { ProductModel } from 'srv/models/product';
+import { ProductRepository } from '../../repositories/product/protocols';
 import { SalesOrderHeaderModel } from '../../models/sales-order-header';
 import { SalesOrderItemModel } from '../../models/sales-order-item';
-import { ProductRepository } from '../../repositories/product/protocols';
-import { CustomerRepository } from "srv/repositories/customer/protocols";
-import { ProductModel } from "srv/models/product";
-import { CustomerModel } from "srv/models/customer";
-import { SalesOrderLogModel } from "srv/models/sales-order-log";
-import { SalesOrderLogRepository } from "srv/repositories/sales-order-log/protocols";
-import { LoggedUserModel } from "srv/models/logged-user";
+import { SalesOrderLogModel } from 'srv/models/sales-order-log';
+import { SalesOrderLogRepository } from 'srv/repositories/sales-order-log/protocols';
+import { CreationPayloadValidationResult, SalesOrderHeaderService } from './protocols';
+import { SalesOrderHeader, SalesOrderHeaders, SalesOrderItem } from '@models/sales';
 
 
 export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService {
@@ -26,7 +26,7 @@ export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService {
             return {
                 hasError: true,
                 error: new Error('Nenhum produto da lista de itens foi encontrado.')
-            }
+            };
         }
         const items = this.getSalesOrderItems(params, products);
         const header = this.getSalesOrderHeader(params, items);
@@ -35,7 +35,7 @@ export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService {
             return {
                 hasError: true,
                 error: new Error('Customer não encontrado')
-            }
+            };
         }
         const headerValidationResult = header.validateCreationPayload({ customer_id: customer.id });
         if (headerValidationResult.hasError) {
@@ -45,7 +45,7 @@ export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService {
         return {
             hasError: false,
             totalAmount: header.calculateDiscount()
-        }
+        };
     }
 
     public async afterCreate(params: SalesOrderHeaders, loggedUser: User): Promise<void> {

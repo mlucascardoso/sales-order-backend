@@ -1,4 +1,4 @@
-import { ProductModel } from "./product";
+import { ProductModel } from './product';
 
 type SalesOrderItemProps = {
     id: string;
@@ -26,7 +26,7 @@ export class SalesOrderItemModel {
         return new SalesOrderItemModel({
             ...props,
             id: crypto.randomUUID()
-        })
+        });
     }
 
     public get id() {
@@ -55,16 +55,16 @@ export class SalesOrderItemModel {
             return {
                 hasError: true,
                 error: new Error(`Produto ${params.product_id} não encontrado`)
-            }
+            };
         }
         if (product.stock === 0) {
             return {
                 hasError: true,
                 error: new Error(`Produto ${product.name}(${product.id}) sem estoque disponível`)
-            }
+            };
         }
         return {
             hasError: false
-        }
+        };
     }
 }

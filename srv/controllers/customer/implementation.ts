@@ -1,6 +1,6 @@
-import { Customers } from "@models/sales";
-import { CustomerController } from "./protocols";
-import { CustomerService } from "srv/services/customer/protocols";
+import { CustomerController } from './protocols';
+import { CustomerService } from 'srv/services/customer/protocols';
+import { Customers } from '@models/sales';
 
 export class CustomerControllerImpl implements CustomerController {
     constructor(private readonly service: CustomerService) {}

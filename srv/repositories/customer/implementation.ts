@@ -1,10 +1,10 @@
 import cds from '@sap/cds';
 
-import { CustomerProps, CustomerModel } from "srv/models/customer";
-import { CustomerRepository } from "./protocols";
+import { CustomerRepository } from './protocols';
+import { CustomerModel, CustomerProps } from 'srv/models/customer';
 
 export class CustomerRepositoryImpl implements CustomerRepository {
-    public async findById(id: CustomerProps["id"]): Promise<CustomerModel | null> {
+    public async findById(id: CustomerProps['id']): Promise<CustomerModel | null> {
         const customerQuery = SELECT.one.from('sales.Customers').where({ id });
         const dbCustomer = await cds.run(customerQuery);
         if (!dbCustomer) {
