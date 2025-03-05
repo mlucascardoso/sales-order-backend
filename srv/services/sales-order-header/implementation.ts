@@ -12,7 +12,6 @@ import { SalesOrderLogRepository } from 'srv/repositories/sales-order-log/protoc
 import { CreationPayloadValidationResult, SalesOrderHeaderService } from './protocols';
 import { SalesOrderHeader, SalesOrderHeaders, SalesOrderItem } from '@models/sales';
 
-
 export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService {
     constructor(
         private readonly customerRepository: CustomerRepository,
@@ -41,7 +40,7 @@ export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService {
         if (headerValidationResult.hasError) {
             return headerValidationResult;
         }
-        
+
         return {
             hasError: false,
             totalAmount: header.calculateDiscount()
@@ -49,15 +48,15 @@ export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService {
     }
 
     public async afterCreate(params: SalesOrderHeaders, loggedUser: User): Promise<void> {
-        const headersAsArray = Array.isArray(params) ? params : [params] as SalesOrderHeaders;
+        const headersAsArray = Array.isArray(params) ? params : ([params] as SalesOrderHeaders);
         const logs: SalesOrderLogModel[] = [];
         for (const header of headersAsArray) {
-            const products = await this.getProductsByIds(header) as ProductModel[];
+            const products = (await this.getProductsByIds(header)) as ProductModel[];
             const items = this.getSalesOrderItems(header, products);
             const salesOrderHeader = this.getExistingSalesOrderHeader(header, items);
             const productsData = salesOrderHeader.getProductsData();
             for (const product of products) {
-                const foundProduct = productsData.find(productData => productData.id === product.id);
+                const foundProduct = productsData.find((productData) => productData.id === product.id);
                 product.sell(foundProduct?.quantity as number);
                 await this.productRepository.updateStock(product);
             }
@@ -74,12 +73,14 @@ export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService {
     }
 
     private getSalesOrderItems(params: SalesOrderHeader, products: ProductModel[]): SalesOrderItemModel[] {
-        return params.items?.map(item => SalesOrderItemModel.create({
-            price: item.price as number,
-            productId: item.product_id as string,
-            quantity: item.quantity as number,
-            products
-        })) as SalesOrderItemModel[];
+        return params.items?.map((item) =>
+            SalesOrderItemModel.create({
+                price: item.price as number,
+                productId: item.product_id as string,
+                quantity: item.quantity as number,
+                products
+            })
+        ) as SalesOrderItemModel[];
     }
 
     private getSalesOrderHeader(params: SalesOrderHeader, items: SalesOrderItemModel[]): SalesOrderHeaderModel {

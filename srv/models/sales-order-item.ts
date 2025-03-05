@@ -6,7 +6,7 @@ type SalesOrderItemProps = {
     quantity: number;
     price: number;
     products: ProductModel[];
-}
+};
 
 type SalesOrderItemPropsWithoutId = Omit<SalesOrderItemProps, 'id'>;
 
@@ -50,7 +50,7 @@ export class SalesOrderItemModel {
     }
 
     public validateCreationPayload(params: CreationPayload): CreationPayloadValidationResult {
-        const product = this.products.find(product => product.id === params.product_id);
+        const product = this.products.find((product) => product.id === params.product_id);
         if (!product) {
             return {
                 hasError: true,

@@ -1,7 +1,7 @@
 import { FullRequestParams } from './protocols';
 import { customerController } from './factories/controllers/customer';
 import { salesOrderHeaderController } from './factories/controllers/sales-order-header';
-import { Customers, SalesOrderHeaders, } from '@models/sales';
+import { Customers, SalesOrderHeaders } from '@models/sales';
 import { Request, Service } from '@sap/cds';
 
 export default (service: Service) => {

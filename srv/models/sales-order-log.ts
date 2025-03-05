@@ -3,7 +3,7 @@ type SalesOrderLogProps = {
     headerId: string;
     userData: string;
     orderData: string;
-}
+};
 
 type SalesOrderLogWithoutIdProps = Omit<SalesOrderLogProps, 'id'>;
 

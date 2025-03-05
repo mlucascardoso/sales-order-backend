@@ -8,7 +8,7 @@ export type ProductProps = {
 export type SellValidationResult = {
     hasError: boolean;
     error?: Error;
-}
+};
 
 export class ProductModel {
     constructor(private props: ProductProps) {}
