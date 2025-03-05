@@ -7,7 +7,8 @@
     "private": true,
     "dependencies": {
         "@sap/cds": "^8",
-        "express": "^4"
+        "express": "^4",
+        "module-alias": "^2.2.3"
     },
     "devDependencies": {
         "@cap-js/cds-typer": "^0.33.0",
@@ -15,7 +16,9 @@
         "@cap-js/sqlite": "^1",
         "@eslint/js": "^9.21.0",
         "@types/axios": "^0.14.4",
+        "@types/module-alias": "^2.0.4",
         "@types/node": "^22.13.5",
+        "chai": "^5.2.0",
         "eslint": "^9.21.0",
         "eslint-plugin-prettier": "^5.2.3",
         "git-commit-msg-linter": "^5.0.8",

@@ -1,5 +1,4 @@
-import { CustomerService } from '../../services/customer/protocols';
-import { CustomerServiceImpl } from '../../services/customer/implementation';
+import { CustomerService, CustomerServiceImpl } from '@/services/customer';
 
 const makeCustomerService = (): CustomerService => {
     return new CustomerServiceImpl();
