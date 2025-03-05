@@ -19,7 +19,7 @@ export default (service: Service) => {
             return request.reject(403, 'Não autorizada a escrita/deleção');
         }
     });
-    service.after('READ', 'Customers', (customersList: Customers, request) => {
+    service.after('READ', 'Customers', (customersList: Customers, request: Request) => {
         (request as unknown as FullRequestParams<Customers>).results = customerController.afterRead(customersList);
     });
     service.before('CREATE', 'SalesOrderHeaders', async (request: Request) => {
