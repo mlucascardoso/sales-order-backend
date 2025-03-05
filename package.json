@@ -13,11 +13,15 @@
         "@cap-js/cds-typer": "^0.33.0",
         "@cap-js/cds-types": "^0.8.0",
         "@cap-js/sqlite": "^1",
+        "@eslint/js": "^9.21.0",
         "@types/axios": "^0.14.4",
         "@types/node": "^22.13.5",
+        "eslint": "^9.21.0",
         "git-commit-msg-linter": "^5.0.8",
+        "globals": "^16.0.0",
         "tsx": "^4.19.3",
-        "typescript": "^5.7.3"
+        "typescript": "^5.7.3",
+        "typescript-eslint": "^8.26.0"
     },
     "scripts": {
         "start": "cds-serve",
