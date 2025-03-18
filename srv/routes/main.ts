@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import '../configs/module-alias';
 
 import { Request, Service } from '@sap/cds';
@@ -36,5 +37,9 @@ export default (service: Service) => {
     service.on('getSalesReportByDays', async (request: Request) => {
         const days = request.data?.days || 7;
         return salesReportController.findByDays(days);
+    });
+    service.on('getSalesReportByCustomerId', async (request: Request) => {
+        const [{ id: customerId }] = request.params as unknown as { id: string }[];
+        return salesReportController.findByCustomerId(customerId);
     });
 };
