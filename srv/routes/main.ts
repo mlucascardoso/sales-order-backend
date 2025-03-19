@@ -42,4 +42,8 @@ export default (service: Service) => {
         const [{ id: customerId }] = request.params as unknown as { id: string }[];
         return salesReportController.findByCustomerId(customerId);
     });
+    service.on('bulkCreateSalesOrder', async (request: Request) => {
+        const { user, data } = request;
+        return salesOrderHeaderController.bulkCreate(data.payload, user);
+    });
 };
