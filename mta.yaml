@@ -1,0 +1,72 @@
+_schema-version: 3.3.0
+ID: sales-order-backend
+version: 1.0.0
+description: Sales Order Management Backend App
+
+parameters:
+  enable-parallel-deployments: true
+
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - yarn
+        - npx cds build --production
+
+modules:
+  - name: sales-order-backend-service
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      disk-quota: 256M
+      memory: 512M
+    build-parameters:
+      builder: custom
+      commands:
+        - cp ../../.cdsrc.json .
+      ignore:
+        - node_modules
+    properties:
+      OPTIMIZE_MEMORY: true
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - sales-order-backend-db
+      - sales-order-backend-uaa
+
+  - name: sales-order-backend-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      ignore:
+        - node_modules
+    requires:
+      - sales-order-backend-db
+    
+resources:
+  - name: sales-order-backend-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+      config:
+        schema: SALESORDERDB
+        makeUniqueName: false
+    properties:
+      hdi-container-name: '${service-name}'
+      hdi-service-name: '${service-name}'
+
+  - name: sales-order-backend-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: sales-order-backend-uaa
+        tenant-mode: dedicated
