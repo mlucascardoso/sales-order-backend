@@ -1,0 +1,64 @@
+{
+    "xsappname": "sales-order-backend",
+    "tenant-mode": "dedicated",
+    "description": "Security profile of Sales Order Backend App",
+    "scopes": [
+        {
+            "name": "uaa.user",
+            "description": "UAA user"
+        },
+        {
+            "name": "$XSAPPNAME.admin",
+            "description": "Admin user"
+        },
+        {
+            "name": "$XSAPPNAME.read_only_user",
+            "description": "ReadOnly user"
+        }
+    ],
+    "attributes": [
+        {
+            "name": "id",
+            "description": "User id",
+            "valueType": "string",
+            "valueRequired": false
+        },
+        {
+            "name": "groups",
+            "description": "User groups",
+            "valueType": "string",
+            "valueRequired": false
+        }
+    ],
+    "role-templates": [
+        {
+            "name": "Token_Exchange",
+            "description": "UAA",
+            "scope-references": [
+                "uaa.user"
+            ]
+        },
+        {
+            "name": "admin",
+            "description": "Admin user",
+            "attribute-references": [
+                "id",
+                "groups"
+            ],
+            "scope-references": [
+                "$XSAPPNAME.admin"
+            ]
+        },
+        {
+            "name": "read_only_user",
+            "description": "ReadOnly user",
+            "attribute-references": [
+                "id",
+                "groups"
+            ],
+            "scope-references": [
+                "$XSAPPNAME.read_only_user"
+            ]
+        }
+    ]
+}

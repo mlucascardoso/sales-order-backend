@@ -4,7 +4,7 @@
         "@sap/hdi-deploy": "^5.4.1"
     },
     "engines": {
-        "node": "^20 | ^22 | ^24"
+        "node": "^20 || ^22 || ^24"
     },
     "scripts": {
         "start": "node node_modules/@sap/hdi-deploy/deploy.js --auto-undeploy"

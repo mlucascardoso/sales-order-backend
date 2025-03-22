@@ -2,6 +2,7 @@ using { sales } from '../../db/schema';
 using { db.types.SalesReport, db.types.BulkCreateSalesOrder } from '../../db/types';
 
 @requires: 'authenticated-user'
+@path: '/sales-order'
 // Entities
 service MainService {
     entity SalesOrderHeaders as projection on sales.SalesOrderHeaders actions {
