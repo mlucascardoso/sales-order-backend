@@ -11,15 +11,15 @@
                 "kind": "basic",
                 "users": {
                     "cuka": {
-                        "password": "Inicial@12345",
-                        "roles": ["admin"],
+                        "password": "cuka",
+                        "roles": ["admin", "read_only_user"],
                         "attr": {
                             "id": 1,
                             "groups": ["grupo1", "grupo2"]
                         }
                     },
                     "joaozinho": {
-                        "password": "Inicial@12345",
+                        "password": "joaozinho",
                         "roles": ["read_only_user"],
                         "attr": {
                             "id": 2,
