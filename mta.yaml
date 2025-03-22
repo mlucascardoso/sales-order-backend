@@ -34,8 +34,8 @@ modules:
         properties:
           srv-url: ${default-url}
     requires:
-      - sales-order-backend-db
-      - sales-order-backend-uaa
+      - name: sales-order-backend-db
+      - name: sales-order-backend-uaa
 
   - name: sales-order-backend-db-deployer
     type: hdb
@@ -46,7 +46,7 @@ modules:
       ignore:
         - node_modules
     requires:
-      - sales-order-backend-db
+      - name: sales-order-backend-db
 
   - name: sales-order-backend-app-router
     type: approuter.nodejs
@@ -55,6 +55,9 @@ modules:
       disk-quota: 256M
       memory: 256M
     build-parameters:
+      builder: custom
+      commands:
+        - yarn
       ignore:
         - node_modules
     requires:
