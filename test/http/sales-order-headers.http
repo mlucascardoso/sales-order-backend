@@ -101,3 +101,12 @@ Authorization: Basic joaozinho:Inicial@12345
 # Buscando dados com $search
 GET http://{{localhost}}/SalesOrderHeaders?$search=91pve&$filter=totalAmount gt 500
 Authorization: Basic joaozinho:Inicial@12345
+
+###
+
+# Funcionalidade de clonar pedidos
+POST http://{{localhost}}/SalesOrderHeaders(15196739-2936-4d66-b85c-283f5ae8ec03)/cloneSalesOrder
+Authorization: Basic cuka:cuka
+Content-Type: application/json
+
+{}
