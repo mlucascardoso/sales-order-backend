@@ -24,3 +24,15 @@ File or Folder | Purpose
 
 Learn more at https://cap.cloud.sap/docs/get-started/.
 
+## Debug mode sales-order-backend-service
+
+- cf enable-ssh sales-order-backend-service
+- cf restart sales-order-backend-service
+
+- cf ssh sales-order-backend-service
+- ps aux | grep node
+- kill -usr1 <PID> # enables the debug mode
+- ctrl + D
+- cf ssh -N -L 9229:127.0.0.1:9229 sales-order-backend-service
+- Access chrome://inspect
+- Access sources tab
