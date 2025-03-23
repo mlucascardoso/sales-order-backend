@@ -9,6 +9,7 @@
         "@cap-js/hana": "^1.7.0",
         "@sap/cds": "^8",
         "@sap/xssec": "^3.6.2",
+        "@sweet-monads/either": "^3.3.1",
         "express": "^4",
         "module-alias": "^2.2.3",
         "passport": "^0.7.0"
