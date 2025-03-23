@@ -14,7 +14,7 @@
         "paths": {
             "@models/*": ["./@cds-models/*/index.ts"],
             "@/*": ["./srv/*"],
-            "@tests": ["./test/*"]
+            "@tests/*": ["./test/*"]
         }
     },
     "include": ["srv", "test"],
