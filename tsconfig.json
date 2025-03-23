@@ -13,9 +13,10 @@
         "sourceMap": true,
         "paths": {
             "@models/*": ["./@cds-models/*/index.ts"],
-            "@/*": ["./srv/*"]
+            "@/*": ["./srv/*"],
+            "@tests": ["./test/*"]
         }
     },
-    "include": ["srv"],
+    "include": ["srv", "test"],
     "exclude": ["node_modules"]
 }
