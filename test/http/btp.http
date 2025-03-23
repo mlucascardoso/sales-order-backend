@@ -1,0 +1,23 @@
+@authApiBaseUrl=df3a89d7trial.authentication.us10.hana.ondemand.com
+@apiBaseUrl=df3a89d7trial-dev-sales-order-backend-service.cfapps.us10-001.hana.ondemand.com
+
+### Obter token do BTP (OAuth 2 client credentials)
+POST https://{{authApiBaseUrl}}/oauth/token
+Authorization: Basic 
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&username=&password=
+
+#
+
+### Criar produto na Sales Order API
+
+POST https://{{apiBaseUrl}}/sales-order/Products
+Authorization: Bearer 
+Content-Type: application/json
+
+{
+    "name": "Kit Teclado e Mouse Sem Fio Multi Com Conexão USB - TC212",
+    "price": 99.90,
+    "stock": 500
+}
