@@ -34,3 +34,4 @@ mta_archives/
 @cds-models
 dist
 Makefile*
+coverage
