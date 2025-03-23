@@ -45,6 +45,7 @@
         "build": "mbt build --mtar sales-order-backend",
         "deploy": "cf deploy mta_archives/sales-order-backend.mtar --retries 0",
         "bd": "npm-run-all clean build deploy",
-        "test:unit": "vitest --dir test/unit"
+        "test:unit": "vitest --dir test/unit",
+        "test:coverage": "vitest --coverage --run --silent"
     }
 }
