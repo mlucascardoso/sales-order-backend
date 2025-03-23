@@ -60,5 +60,10 @@
                 "$XSAPPNAME.read_only_user"
             ]
         }
-    ]
+    ],
+    "oauth2-configuration": {
+        "redirect-uris": [
+            "https://df3a89d7trial-*/**"
+        ]
+    }
 }
