@@ -8,7 +8,7 @@ export class SalesReportRepositoryStub implements SalesReportRepository {
         const result: SalesReportModel[] = [
             SalesReportModel.with({
                 salesOrderId,
-                salesOrderTotalAmount: 100,
+                salesOrderTotalAmount: 5,
                 customerId,
                 customerFullName: 'Valid Customer'
             })
