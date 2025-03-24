@@ -51,6 +51,7 @@
         "bd": "npm-run-all clean build deploy",
         "test:unit": "vitest --dir test/unit",
         "test:coverage": "vitest --coverage --run --silent",
-        "test:e2e": "jest --watch"
+        "test:e2e": "jest --watch",
+        "test:e2e:silent": "jest --watch --silent"
     }
 }
