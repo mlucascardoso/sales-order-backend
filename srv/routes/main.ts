@@ -1,6 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import '../configs/module-alias';
 
+import { format } from 'date-fns';
 import { Request, Service } from '@sap/cds';
 
 import { Customers, SalesOrderHeaders } from '@models/sales';
@@ -53,6 +54,24 @@ export default (service: Service) => {
             return request.error(result.status, result.data as string);
         }
         return result.data;
+    });
+    service.on('exportSalesReportByDays', async (request: Request) => {
+        const days = request.data?.days || 7;
+        const result = await salesReportController.exportByDays(days);
+        if (result.status >= 400) {
+            return request.error(result.status, result.data as string);
+        }
+
+        const { res } = request.http;
+        const currentDate = format(new Date(), 'dd-MM-yyyy');
+        const fileName = `relatorio-vendas-${days}-dias-${currentDate}.xlsx`;
+
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+        res.setHeader('Cache-Control', 'max-age=0');
+
+        res.end(result.data);
+        return;
     });
     service.on('bulkCreateSalesOrder', async (request: Request) => {
         const { user, data } = request;

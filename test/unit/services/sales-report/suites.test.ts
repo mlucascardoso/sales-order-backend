@@ -99,4 +99,48 @@ describe('SalesReportService test cases', () => {
             );
         });
     });
+    describe('method exportByDays test cases', () => {
+        it('should return ServerError if SalesReportRepository throws', async () => {
+            const { sut, salesReportRepository } = makeSut();
+            vi.spyOn(salesReportRepository, 'findByDays').mockRejectedValueOnce(() => {
+                throw new ServerError('Fake error');
+            });
+            const result = await sut.exportByDays();
+            expect(result.isLeft()).toBeTruthy();
+            expect(result.value).toBeInstanceOf(ServerError);
+            const error = result.value as ServerError;
+            expect(error.code).toBe(500);
+            expect(error.message).toBe('internalServerError');
+        });
+        it('should return NotFoundError if no records were found for the provided parameters', async () => {
+            const { sut, salesReportRepository } = makeSut();
+            vi.spyOn(salesReportRepository, 'findByDays').mockReturnValueOnce(Promise.resolve(null));
+            const result = await sut.exportByDays();
+            expect(result.isLeft()).toBeTruthy();
+            expect(result.value).toBeInstanceOf(NotFoundError);
+            const error = result.value as NotFoundError;
+            expect(error.code).toBe(404);
+            expect(error.message).toBe('Nenhum dado encontrado para os parâmetros informados');
+        });
+        it('should return Excel Buffer if everything worked as expected', async () => {
+            const { sut } = makeSut();
+            const result = await sut.exportByDays();
+
+            // Verifica se retornou Right com sucesso
+            expect(result.isRight()).toBeTruthy();
+
+            // Verifica se o buffer foi gerado corretamente
+            const buffer = result.value as Buffer;
+
+            // Garante que é realmente um Buffer
+            expect(Buffer.isBuffer(buffer)).toBeTruthy();
+
+            // Verifica o tamanho mínimo esperado para um arquivo Excel válido
+            expect(buffer.length).toBeGreaterThan(100);
+
+            // Verifica se os primeiros bytes são compatíveis com a assinatura de um arquivo XLSX (PK)
+            expect(buffer[0]).toBe(0x50); // P
+            expect(buffer[1]).toBe(0x4b); // K
+        });
+    });
 });
