@@ -40,3 +40,16 @@ Regras gerais:
 - Evite ter arquivos com mais de 200-300 linhas de código. Refatore nesse ponto.
 - Os dados simulados são necessários apenas para testes, nunca simule dados para dev ou prod.
 - Nunca sobrescreva meu arquivo .env sem primeiro perguntar e confirmar.
+- As regras de typescript podem ser localizadas em /home/mlucascardoso/cap-course/sales-order-backend/tsconfig.json
+- As regras de testes end-to-end podem ser localizadas em /home/mlucascardoso/cap-course/sales-order-backend/jest.config.js
+- As regras de testes unitários podem ser localizadas em /home/mlucascardoso/cap-course/sales-order-backend/vitest.config.ts
+- Os arquivos de código-fonte typescript estão localizados em /home/mlucascardoso/cap-course/sales-order-backend/srv
+- Os arquivos relacionados a banco de dados estão localizados em /home/mlucascardoso/cap-course/sales-order-backend/db
+- Os arquivos relacionados a testes estão localizados em /home/mlucascardoso/cap-course/sales-order-backend/test
+- Para testes end-to-end utilize a API utilitária que pode ser localizada em /home/mlucascardoso/cap-course/sales-order-backend/test/e2e/config/api.ts
+- Caso você precise gerar arquivos Excel, utilize a biblioteca exceljs
+- Este projeto utiliza "yarn" por padrão
+
+
+
+
