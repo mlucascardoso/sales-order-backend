@@ -1,0 +1,62 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+### 🛠️ Regras e Diretrizes do Projeto `sales-order-backend`
+
+#### 📁 Estrutura de Diretórios e Arquivos
+
+- **Configurações TypeScript:**  
+  `/home/mlucascardoso/cap-course/sales-order-backend/tsconfig.json`
+
+- **Configuração de Testes:**
+  - **Unitários (Vitest):** `/home/mlucascardoso/cap-course/sales-order-backend/vitest.config.ts`  
+  - **End-to-End (Jest):** `/home/mlucascardoso/cap-course/sales-order-backend/jest.config.js`
+
+- **Diretórios principais:**
+  - **Código-fonte (TypeScript):** `/srv`
+  - **Banco de dados (CDS e migrations):** `/db`
+  - **Testes (unitários e e2e):** `/test`
+  - **API utilitária para testes e2e:**  
+    `/test/e2e/config/api.ts`
+
+#### 🛆 Dependências e Convenções
+
+- Todo o código deve seguir as regras de lint configuradas com **ESLint** no repositório.
+- O projeto utili` como gerenciador de pacotes padrão.
+- Para geração de arquivos Excel, utilize **[exceljs](https://github.com/exceljs/exceljs)**.
+- Evite passar variáveis por **referência de memória** para prevenir efeitos colaterais relacionados à mutabilidade.
+
+- O projeto utiliza `yarn` como gerenciador de pacotes padrão.
+- Para geração de arquivos Excel, utilize **[exceljs](https://github.com/exceljs/exceljs)**.
+- Evite passar variáveis por **referência de memória** para prevenir efeitos colaterais relacionados à mutabilidade.
+
+#### ✅ Boas Práticas e Qualidade
+
+- **Toda nova rota deve vir acompanhada de testes unitários e, se aplicável, testes end-to-end.**
+- **Evite lógica de negócio nas rotas ou controllers. Prefira os serviços.**
+
+#### 🧹 Padrões Arquiteturais
+
+- **Routes (camada de entrada):**
+  - Expõem entidades como serviços REST.
+  - Definem ações e funções personalizadas.
+  - Configuram middlewares de pré/pós-processamento.
+  - Implementam verificações básicas de autorização.
+
+- **Controllers (camada de orquestração):**
+  - Recebem e tratam requisições da camada de rotas.
+  - Orquestram chamadas para serviços.
+
+- **Services (camada de negócio):**
+  - Contêm validações complexas (ex: verificação de estoque).
+  - Executam cálculos (ex: total de pedidos).
+  - Coordenam múltiplos repositórios.
+  - Implementam regras de negócio da aplicação.
+
+- **Models (camada de domínio):**
+  - Representam estruturas de dados.
+  - Executam validações específicas por entidade.
+  - Encapsulam comportamentos (ex: cálculo de descontos).
+  - Realizam transformações de dados.
