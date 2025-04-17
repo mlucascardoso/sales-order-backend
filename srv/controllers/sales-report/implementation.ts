@@ -22,4 +22,12 @@ export class SalesReportControllerImpl extends BaseControllerImpl implements Sal
         }
         return this.success(result.value);
     }
+
+    public async exportByDays(days: number): Promise<BaseControllerResponse> {
+        const result = await this.service.exportByDays(days);
+        if (result.isLeft()) {
+            return this.error(result.value.code, result.value.message);
+        }
+        return this.success(result.value);
+    }
 }

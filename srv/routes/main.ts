@@ -46,6 +46,28 @@ export default (service: Service) => {
         }
         return result.data;
     });
+    service.on('exportSalesReportByDays', async (request: Request) => {
+        const days = request.data?.days || 7;
+        const result = await salesReportController.exportByDays(days);
+        if (result.status >= 400) {
+            return request.error(result.status, result.data as string);
+        }
+
+        const excelBuffer = result.data as Buffer;
+        const dateStr = new Date().toISOString().slice(0, 10);
+        const fileName = `relatorio-vendas-${dateStr}.xlsx`;
+
+        // Configurar os headers para download do arquivo
+        const res = request._.res;
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', `attachment; filename=${fileName}`);
+        res.setHeader('Content-Length', excelBuffer.length);
+        res.setHeader('Cache-Control', 'max-age=0');
+
+        // Enviar o buffer como resposta
+        res.end(excelBuffer);
+        return;
+    });
     service.on('getSalesReportByCustomerId', async (request: Request) => {
         const [{ id: customerId }] = request.params as unknown as { id: string }[];
         const result = await salesReportController.findByCustomerId(customerId);
