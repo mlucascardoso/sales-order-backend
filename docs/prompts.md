@@ -38,7 +38,6 @@
 24. "Considere edge cases e situações excepcionais na sua implementação, tratando-os adequadamente."
 25. "Identifique partes do código que seriam beneficiadas por testes específicos e explique por quê."
 
-
 # Escalabilidade e Performance
 
 26. "Analise como a solução proposta se comportará com o crescimento do projeto e aumento de carga."
