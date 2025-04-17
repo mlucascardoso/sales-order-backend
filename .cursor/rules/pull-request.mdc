@@ -1,0 +1,12 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+Quando solicitado a "Abrir PR", você deve:
+
+- Abrir uma nova branch no padrão gitflow: feature, bugfix, hotfix.
+- Commitar as alterações utilizando conventional commits
+- Pushar as alterações para o repositório
+- Abrir a pull request no github, utilizando como base o [pull_request_template.md](mdc:.github/pull_request_template.md)
+- informar os detalhes da abertura da pull request
