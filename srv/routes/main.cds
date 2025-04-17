@@ -19,6 +19,7 @@ service MainService {
 // Functions
 extend service MainService with {
     function getSalesReportByDays(days: SalesReport.Params:days) returns array of SalesReport.ExpectedResult;
+    function exportSalesReportByDays(days: SalesReport.Params:days) returns Binary;
 }
 
 // Actions

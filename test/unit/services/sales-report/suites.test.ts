@@ -99,4 +99,40 @@ describe('SalesReportService test cases', () => {
             );
         });
     });
+    describe('method exportByDays test cases', () => {
+        it('should return ServerError if SalesReportRepository throws', async () => {
+            const { sut, salesReportRepository } = makeSut();
+            vi.spyOn(salesReportRepository, 'findByDays').mockRejectedValueOnce(() => {
+                throw new ServerError('Fake error');
+            });
+            const result = await sut.exportByDays();
+            expect(result.isLeft()).toBeTruthy();
+            expect(result.value).toBeInstanceOf(ServerError);
+            const error = result.value as ServerError;
+            expect(error.code).toBe(500);
+            expect(error.message).toBe('internalServerError');
+        });
+
+        it('should return NotFoundError if no records were found for the provided parameters', async () => {
+            const { sut, salesReportRepository } = makeSut();
+            vi.spyOn(salesReportRepository, 'findByDays').mockReturnValueOnce(Promise.resolve(null));
+            const result = await sut.exportByDays();
+            expect(result.isLeft()).toBeTruthy();
+            expect(result.value).toBeInstanceOf(NotFoundError);
+            const error = result.value as NotFoundError;
+            expect(error.code).toBe(404);
+            expect(error.message).toBe('Nenhum dado encontrado para os parâmetros informados');
+        });
+
+        it('should return Buffer if everything worked as expected', async () => {
+            const { sut } = makeSut();
+            const result = await sut.exportByDays();
+            expect(result.isRight()).toBeTruthy();
+            // Verificar se o resultado é um Buffer
+            const buffer = result.value as Buffer;
+            expect(Buffer.isBuffer(buffer)).toBeTruthy();
+            // Verificar assinatura de arquivo XLSX - bytes iniciais 504b
+            expect(buffer.slice(0, 2).toString('hex').startsWith('504b')).toBeTruthy();
+        });
+    });
 });
